@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1055846007632",
+    "project_id": "restauracje-lodz-08",
+    "storage_bucket": "restauracje-lodz-08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055846007632:android:f49e02a4dd2182bfdb6255",
+        "android_client_info": {
+          "package_name": "com.dawidskalski.restauracje_lodz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055846007632-34ecnc3eb8ahqumfe8v45amuqb46ennf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9id2IyyE00XXgNgztmOa6WTJl2lMo_AQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055846007632-34ecnc3eb8ahqumfe8v45amuqb46ennf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

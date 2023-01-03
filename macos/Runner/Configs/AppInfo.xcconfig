@@ -8,7 +8,7 @@
 PRODUCT_NAME = restauracje_lodz
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.restauracjeLodz
+PRODUCT_BUNDLE_IDENTIFIER = com.dawidskalski.restauracjeLodz
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.dawidskalski. All rights reserved.

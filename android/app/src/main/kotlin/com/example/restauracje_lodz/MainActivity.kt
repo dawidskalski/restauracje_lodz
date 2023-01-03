@@ -1,4 +1,4 @@
-package com.example.restauracje_lodz
+package com.dawidskalski.restauracje_lodz
 
 import io.flutter.embedding.android.FlutterActivity
 
