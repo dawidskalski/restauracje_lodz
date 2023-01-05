@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:restauracje_lodz/app/home/home_page.dart';
+import 'package:restauracje_lodz/app/login/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -38,15 +40,12 @@ class RootPage extends StatelessWidget {
         builder: (context, snapshot) {
           final user = snapshot.data;
           if (user == null) {
-            return const Scaffold(
-              body: Center(
-                child: Text('Jesteś nie zalogowany'),
-              ),
-            );
+            return const LoginPage();
           }
-          return Scaffold(body: Center(
-                child: Text('Jesteś nie zalogowany jako ${user.email}'),
-              ),);
+          return HomePage(user: user);
         });
   }
 }
+
+
+
