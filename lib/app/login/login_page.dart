@@ -5,8 +5,8 @@ class LoginPage extends StatefulWidget {
   LoginPage({
     Key? key,
   }) : super(key: key);
-  final emailController = TextEditingController();
 
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
@@ -15,72 +15,89 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   var errorMessage = '';
+  var isCreatingAccount = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Witaj !',
-                style: TextStyle(fontSize: 50, color: Colors.white),
-              ),
+              Text(isCreatingAccount == true
+                  ? 'Zarejestruj się '
+                  : 'Zaloguj się'),
               const SizedBox(height: 50),
-              Container(
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(10),
-                child: TextField(
-                  controller: widget.emailController,
-                  decoration: InputDecoration(hintText: 'E-mail'),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
+              TextField(
+                decoration: InputDecoration(hintText: 'E-mail'),
+                controller: widget.emailController,
               ),
-              Container(
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(10),
-                child: TextField(
-                  decoration: InputDecoration(hintText: 'Password'),
-                  controller: widget.passwordController,
-                  obscureText: true,
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
+              TextField(
+                decoration: const InputDecoration(hintText: 'Password'),
+                controller: widget.passwordController,
+                obscureText: true,
               ),
               const SizedBox(height: 20),
-              Text(
-                errorMessage,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+              Text(errorMessage),
               const SizedBox(height: 20),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                 onPressed: () async {
-                  try {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: widget.emailController.text,
-                        password: widget.passwordController.text);
-                  } catch (error) {
-                    setState(
-                      () {
-                        errorMessage = error.toString();
-                      },
-                    );
+                  if (isCreatingAccount == true) {
+                    //Rejstracja
+                    try {
+                      await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: widget.emailController.text,
+                              password: widget.passwordController.text);
+                    } catch (error) {
+                      setState(
+                        () {
+                          errorMessage = error.toString();
+                        },
+                      );
+                    }
+                  } else {
+                    //Logowanie
+                    try {
+                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: widget.emailController.text,
+                          password: widget.passwordController.text);
+                    } catch (error) {
+                      setState(
+                        () {
+                          errorMessage = error.toString();
+                        },
+                      );
+                    }
                   }
                 },
-                child: const Text(
-                  'Zaloguj się',
-                  style: TextStyle(color: Colors.blue),
-                ),
+                child: Text(isCreatingAccount == true
+                    ? 'Zarejestruj się'
+                    : 'Zaloguj się'),
               ),
+              SizedBox(height: 20),
+              if (isCreatingAccount == false) ...[
+                TextButton(
+                  child: Text('Utwórz konto'),
+                  onPressed: () {
+                    setState(() {
+                      isCreatingAccount = true;
+                    });
+                  },
+                )
+              ],
+              if (isCreatingAccount == true) ...[
+                TextButton(
+                  child: Text('Mam już konto'),
+                  onPressed: () {
+                    setState(() {
+                      isCreatingAccount = false;
+                    });
+                  },
+                )
+              ],
             ],
           ),
         ),
