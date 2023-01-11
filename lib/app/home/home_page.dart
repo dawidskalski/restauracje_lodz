@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:restauracje_lodz/app/home/add_opinion/add_opinion_page_content.dart';
+import 'package:restauracje_lodz/app/home/my_account/my_account_page_content.dart';
+import 'package:restauracje_lodz/app/home/restaurants/restaurants_page_content.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -19,34 +23,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(builder: (context) {
-        if (currentInt == 0) {
-          return Center(
-            child: Text('Jeden'),
-          );
-        }
-        if (currentInt == 1) {
-          return Center(
-            child: Text('dwa'),
-          );
-        }
+      appBar: AppBar(
+        title: Text('Restauracje Łódź'),
+      ),
+      body: Builder(
+        builder: (context) {
+          if (currentInt == 0) {
+            return RestaurantsPageContent();
+          }
+          if (currentInt == 1) {
+            return AddOpinionPageContent();
+          }
 
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Jesteś zalogowany jako ${widget.user.email}'),
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                },
-                child: Text('Wyloguj'),
-              )
-            ],
-          ),
-        );
-      }),
+          return MyAccountPageContent(email: widget.user.email);
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentInt,
         onTap: (newInt) {
@@ -72,3 +63,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
+
+
