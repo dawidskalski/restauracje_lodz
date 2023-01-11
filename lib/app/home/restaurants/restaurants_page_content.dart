@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +34,7 @@ class RestaurantsPageContent extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(document['name']),
-                                Text(document['pizza']),
+                                Text(document['dishname']),
                               ],
                             ),
                             Text(
