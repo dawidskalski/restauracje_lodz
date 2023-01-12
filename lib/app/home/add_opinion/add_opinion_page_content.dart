@@ -4,8 +4,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class AddOpinionPageContent extends StatefulWidget {
   const AddOpinionPageContent({
+    required this.onSave,
     Key? key,
   }) : super(key: key);
+  final onSave;
 
   @override
   State<AddOpinionPageContent> createState() => _AddOpinionPageContentState();
@@ -14,76 +16,83 @@ class AddOpinionPageContent extends StatefulWidget {
 class _AddOpinionPageContentState extends State<AddOpinionPageContent> {
   var restaurantName = '';
   var dishName = '';
-  var rating = 3.0;
+  var rating = 1.0;
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Podaj nazwę Restauracji',
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              decoration: const InputDecoration(
+                hintText: 'Podaj nazwę Restauracji',
+              ),
+              onChanged: (newValue) {
+                setState(() {
+                  restaurantName = newValue;
+                });
+              },
             ),
-            onChanged: (newValue) {
-              setState(() {
-                restaurantName = newValue;
-              });
-            },
-          ),
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Podaj nazwę Dania',
+            TextField(
+              decoration: const InputDecoration(
+                hintText: 'Podaj nazwę Dania',
+              ),
+              onChanged: (newValue) {
+                setState(
+                  () {
+                    dishName = newValue;
+                  },
+                );
+              },
             ),
-            onChanged: (newValue) {
-              setState(
-                () {
-                  dishName = newValue;
-                },
-              );
-            },
-          ),
-          SizedBox(height: 10),
-          RatingBar.builder(
-            initialRating: 3,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 6,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => Icon(
-              Icons.star,
-              color: Colors.amber,
+            const SizedBox(height: 10),
+            RatingBar.builder(
+              initialRating: 1,
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 6,
+              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (newValue) {
+                setState(() {
+                  rating = newValue;
+                });
+              },
             ),
-            onRatingUpdate: (newValue) {
-              setState(() {
-                rating = newValue;
-              });
-              print(rating);
-            },
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.orange),
-            child: Text(
-              "Rating $rating",
-              style: TextStyle(color: Colors.white),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.fromLTRB(50, 10, 50, 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.orange),
+              child: Text(
+                "Rating $rating",
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              FirebaseFirestore.instance.collection('restaurants').add({
-                'name': restaurantName,
-                'dishname': dishName,
-                'rating': rating,
-              });
-            },
-            child: Text('Dodaj'),
-          ),
-        ],
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: restaurantName.isEmpty || dishName.isEmpty
+                  ? null
+                  : () {
+                      FirebaseFirestore.instance.collection('restaurants').add({
+                        'name': restaurantName,
+                        'dishname': dishName,
+                        'rating': rating,
+                      });
+                      widget.onSave();
+                    },
+              child: const Text('Dodaj'),
+            ),
+          ],
+        ),
       ),
     );
   }
