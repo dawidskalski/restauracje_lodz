@@ -73,7 +73,7 @@ class _AddOpinionPageContentState extends State<AddOpinionPageContent> {
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.orange),
               child: Text(
-                "Rating $rating",
+                "Ocena $rating",
                 style: const TextStyle(color: Colors.white),
               ),
             ),

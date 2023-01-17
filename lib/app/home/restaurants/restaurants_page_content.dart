@@ -25,29 +25,42 @@ class RestaurantsPageContent extends StatelessWidget {
           return ListView(
             children: [
               for (final document in documents) ...[
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  document['name'],
-                                  style: TextStyle(fontSize: 17),
-                                ),
-                                Text(document['dishname']),
-                              ],
-                            ),
-                            Text(
-                              document['rating'].toString(),
-                              style: TextStyle(fontSize: 17),
-                            )
-                          ]),
-                    ],
+                Dismissible(
+                  key: ValueKey(document.id),
+                  onDismissed: (_) {
+                    FirebaseFirestore.instance
+                        .collection('restaurants')
+                        .doc(document.id)
+                        .delete();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue),
+                    padding: EdgeInsets.all(15),
+                    margin: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    document['name'],
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  Text(document['dishname']),
+                                ],
+                              ),
+                              Text(
+                                document['rating'].toString(),
+                                style: TextStyle(fontSize: 17),
+                              )
+                            ]),
+                      ],
+                    ),
                   ),
                 ),
               ],
