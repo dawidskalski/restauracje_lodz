@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restauracje_lodz/app/home/restaurants/cubit/restaurants_cubit.dart';
 
 class RestaurantsPageContent extends StatelessWidget {
   const RestaurantsPageContent({
@@ -8,64 +9,57 @@ class RestaurantsPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance
-            .collection('restaurants')
-            .orderBy('rating', descending: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(child: Text('Something went wrong'));
+    return BlocProvider(
+      create: (context) => RestaurantsCubit()..start(),
+      child: BlocBuilder<RestaurantsCubit, RestaurantsState>(
+        builder: (context, state) {
+          if (state.errorMessage.isNotEmpty) {
+            return Center(
+              child: Text('Something went wrong: ${state.errorMessage}'),
+            );
           }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: Text('Loading'));
+          if (state.isLoading == true) {
+            return const Center(child: CircularProgressIndicator());
           }
 
-          final documents = snapshot.data!.docs;
+          final documents = state.documents;
           return ListView(
             children: [
               for (final document in documents) ...[
-                Dismissible(
-                  key: ValueKey(document.id),
-                  onDismissed: (_) {
-                    FirebaseFirestore.instance
-                        .collection('restaurants')
-                        .doc(document.id)
-                        .delete();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
-                    padding: EdgeInsets.all(15),
-                    margin: EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    document['name'],
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                  Text(document['dishname']),
-                                ],
-                              ),
-                              Text(
-                                document['rating'].toString(),
-                                style: TextStyle(fontSize: 17),
-                              )
-                            ]),
-                      ],
-                    ),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  padding: EdgeInsets.all(15),
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  document['name'],
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                                Text(document['dishname']),
+                              ],
+                            ),
+                            Text(
+                              document['rating'].toString(),
+                              style: TextStyle(fontSize: 17),
+                            )
+                          ]),
+                    ],
                   ),
                 ),
               ],
             ],
           );
-        });
+        },
+      ),
+    );
   }
 }
