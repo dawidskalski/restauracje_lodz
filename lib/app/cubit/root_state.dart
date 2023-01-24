@@ -4,6 +4,7 @@ part of 'root_cubit.dart';
 class RootState {
   final User? user;
   final bool isLoading;
+  // ignore: prefer_typing_uninitialized_variables
   final errorMessage;
 
   const RootState({

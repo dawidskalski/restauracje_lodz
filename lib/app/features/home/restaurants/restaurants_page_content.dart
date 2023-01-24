@@ -30,8 +30,8 @@ class RestaurantsPageContent extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.orange),
-                  padding: EdgeInsets.all(15),
-                  margin: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Row(
@@ -42,14 +42,14 @@ class RestaurantsPageContent extends StatelessWidget {
                               children: [
                                 Text(
                                   document['name'],
-                                  style: TextStyle(fontSize: 17),
+                                  style: const TextStyle(fontSize: 17),
                                 ),
                                 Text(document['dishname']),
                               ],
                             ),
                             Text(
                               document['rating'].toString(),
-                              style: TextStyle(fontSize: 17),
+                              style: const TextStyle(fontSize: 17),
                             )
                           ]),
                     ],

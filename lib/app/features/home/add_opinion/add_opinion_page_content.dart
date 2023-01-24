@@ -7,6 +7,7 @@ class AddOpinionPageContent extends StatefulWidget {
     required this.onSave,
     Key? key,
   }) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
   final onSave;
 
   @override
@@ -27,9 +28,6 @@ class _AddOpinionPageContentState extends State<AddOpinionPageContent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              decoration: const InputDecoration(
-                hintText: 'Podaj nazwę Restauracji',
-              ),
               onChanged: (newValue) {
                 setState(() {
                   restaurantName = newValue;
@@ -37,9 +35,6 @@ class _AddOpinionPageContentState extends State<AddOpinionPageContent> {
               },
             ),
             TextField(
-              decoration: const InputDecoration(
-                hintText: 'Podaj nazwę Dania',
-              ),
               onChanged: (newValue) {
                 setState(
                   () {
