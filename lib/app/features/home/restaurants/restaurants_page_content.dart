@@ -29,7 +29,7 @@ class RestaurantsPageContent extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue),
+                      color: Colors.orange),
                   padding: EdgeInsets.all(15),
                   margin: EdgeInsets.all(10),
                   child: Column(
