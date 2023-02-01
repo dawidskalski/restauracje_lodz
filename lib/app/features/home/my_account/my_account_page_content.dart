@@ -20,7 +20,7 @@ class MyAccountPageContent extends StatelessWidget {
           const SizedBox(height: 20.0),
           ElevatedButton(
             onPressed: () {
-              context.read<RootCubit>().signOut();
+             context.read<RootCubit>().signOut();
             },
             child: const Text('Wyloguj'),
           )
