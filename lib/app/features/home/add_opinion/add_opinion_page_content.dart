@@ -28,6 +28,7 @@ class _AddOpinionPageContentState extends State<AddOpinionPageContent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
+              decoration: InputDecoration(hintText: 'Nazwa restauracji'),
               onChanged: (newValue) {
                 setState(() {
                   restaurantName = newValue;
@@ -35,6 +36,7 @@ class _AddOpinionPageContentState extends State<AddOpinionPageContent> {
               },
             ),
             TextField(
+              decoration: InputDecoration(hintText: 'Nazwa dania'),
               onChanged: (newValue) {
                 setState(
                   () {

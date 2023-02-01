@@ -31,11 +31,11 @@ class _LoginPageState extends State<LoginPage> {
                   : 'Zaloguj się'),
               const SizedBox(height: 50),
               TextField(
-              
+                decoration: InputDecoration(hintText: 'E-mail'),
                 controller: widget.emailController,
               ),
               TextField(
-              
+                decoration: InputDecoration(hintText: 'Password'),
                 controller: widget.passwordController,
                 obscureText: true,
               ),
