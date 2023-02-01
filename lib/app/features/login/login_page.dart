@@ -31,11 +31,11 @@ class _LoginPageState extends State<LoginPage> {
                   : 'Zaloguj się'),
               const SizedBox(height: 50),
               TextField(
-                decoration: InputDecoration(hintText: 'E-mail'),
+              
                 controller: widget.emailController,
               ),
               TextField(
-                decoration: const InputDecoration(hintText: 'Password'),
+              
                 controller: widget.passwordController,
                 obscureText: true,
               ),
@@ -77,10 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                     ? 'Zarejestruj się'
                     : 'Zaloguj się'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               if (isCreatingAccount == false) ...[
                 TextButton(
-                  child: Text('Utwórz konto'),
+                  child: const Text('Utwórz konto'),
                   onPressed: () {
                     setState(() {
                       isCreatingAccount = true;
@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
               if (isCreatingAccount == true) ...[
                 TextButton(
-                  child: Text('Mam już konto'),
+                  child: const Text('Mam już konto'),
                   onPressed: () {
                     setState(() {
                       isCreatingAccount = false;

@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:restauracje_lodz/app/home/add_opinion/add_opinion_page_content.dart';
-import 'package:restauracje_lodz/app/home/my_account/my_account_page_content.dart';
-import 'package:restauracje_lodz/app/home/restaurants/restaurants_page_content.dart';
+import 'package:restauracje_lodz/app/features/home/add_opinion/add_opinion_page_content.dart';
+import 'package:restauracje_lodz/app/features/home/my_account/my_account_page_content.dart';
+import 'package:restauracje_lodz/app/features/home/restaurants/restaurants_page_content.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -24,12 +23,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Restauracje Łódź'),
+        title: const Text('Restauracje Łódź'),
       ),
       body: Builder(
         builder: (context) {
           if (currentInt == 0) {
-            return RestaurantsPageContent();
+            return const RestaurantsPageContent();
           }
           if (currentInt == 1) {
             return AddOpinionPageContent(onSave: () {
